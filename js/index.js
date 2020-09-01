@@ -18,15 +18,22 @@ allNavLinks.forEach(function(item){
     item.addEventListener("mouseover", function(event){
         item.style.color="#17a2b8"
         item.style.transition=".25s"
+        event.preventDefault()
     })
 
     item.addEventListener("mouseleave", function(event){
         item.style.color="#213248"
+        event.preventDefault()
+    })
+
+    item.addEventListener("click", function(){
+        event.preventDefault()
     })
 
     // 2nd type: CSS Transition Event
     item.addEventListener("transitionend", function(event){
         item.style.color="#ca8c81"
+        event.preventDefault()
     })
 })
 
@@ -85,8 +92,8 @@ firstContentImg.addEventListener("drag", function(){
     mainHeading.textContent = "You're a drag!"
 })
 
-const welcomeMsg = document.querySelector("h2")
 // 9th type: Tab Event
+const welcomeMsg = document.querySelector("h2")
 document.addEventListener("visibilitychange", function() {
   if (document.visibilityState === 'visible') {
     welcomeMsg.textContent="Welcome back to Fun Bus!"
@@ -95,20 +102,29 @@ document.addEventListener("visibilitychange", function() {
   }
 });
 
-// 10th type: Battery Event
-navigator.getBattery().then(function(battery) {
+// 10th type: Double Click + Stop propagation correctly
+welcomeMsg.addEventListener("dblclick", function(){
+    this.style.backgroundColor="#eed6a7"
 
-    let textToAdd = battery.charging ? "You're charging your battery!" : "You're not charging your battery"
-    welcomeMsg.textContent=`Welcome to Fun Bus! ${textToAdd}`
-    console.log("Battery charging? " + (battery.charging ? "Yes" : "No"));
+    // Stops the header from also changing background color
+    event.stopPropagation() 
+})
 
-  battery.addEventListener('chargingchange', function() {
-    textToAdd = battery.charging ? "You're charging your battery!" : "You're not charging your battery"
-    welcomeMsg.textContent=`Welcome to Fun Bus! ${textToAdd}`
-    console.log("Battery charging? " + (battery.charging ? "Yes" : "No"));
-  });
+const intro = document.querySelector(".intro")
+intro.addEventListener("dblclick", function(){
+    this.style.backgroundColor="#aaa9a0"
+})
 
-});
+// navigator.getBattery().then(function(battery) {
+//     let textToAdd = battery.charging ? "You're charging your battery!" : "You're not charging your battery"
+//     welcomeMsg.textContent=`Welcome to Fun Bus! ${textToAdd}`
+
+//   battery.addEventListener('chargingchange', function() {
+//     textToAdd = battery.charging ? "You're charging your battery!" : "You're not charging your battery"
+//     welcomeMsg.textContent=`Welcome to Fun Bus! ${textToAdd}`
+//   });
+
+// });
 
 // console.log(firstContent)
 // 8th type: Focus Event
