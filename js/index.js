@@ -44,12 +44,16 @@ const heroImage = document.querySelector(".intro img")
 
 // 3nd type: Screen Event
 document.addEventListener("scroll", function(){
+    // gsap.to(".intro img", {duration: 2, width:0, height:0});
     heroImage.src="https://source.unsplash.com/random/1000x300"
+    // gsap.to(".intro img", {duration: 2, x:100})
+    gsap.fromTo(".intro img", {opacity:.5, ease:"inout", duration:.25}, {opacity:1,duration: .25,});
 })
 
 // 4rd type: Pointer Event
 heroImage.addEventListener("pointerenter", function(){
     heroImage.src="https://picsum.photos/1000/300"
+    gsap.fromTo(".intro img", {opacity:.5, ease:"inout", duration:.25}, {opacity:1,duration: .25,});
 })
 
 // ------------------
@@ -79,6 +83,7 @@ document.addEventListener("keydown", function(event){
     if (event.key==="y"){
         nav.style.backgroundColor="#eed6a7"
     }
+    gsap.fromTo(".main-navigation", {scale:.8, duration:.5},{scale:1,duration:.5})
 })
 
 // mainHeading.addEventListener("fullscreenchange", function(){
@@ -90,6 +95,7 @@ const firstContent = document.querySelector(".img-content")
 const firstContentImg = firstContent.querySelector("img")
 firstContentImg.addEventListener("drag", function(){
     mainHeading.textContent = "You're a drag!"
+    gsap.to(".img-content", {duration: 2, rotation: 360,});
 })
 
 // 9th type: Tab Event
@@ -99,13 +105,15 @@ document.addEventListener("visibilitychange", function() {
     welcomeMsg.textContent="Welcome back to Fun Bus!"
   } else {
     welcomeMsg.textContent="You're away :("
+    gsap.from(".intro h2", {duration: 2, x: 200, ease: "bounce"});
+    // gsap.from(".intro h2", {duration: 2, rotation: 360,});
   }
 });
 
 // 10th type: Double Click + Stop propagation correctly
 welcomeMsg.addEventListener("dblclick", function(){
     this.style.backgroundColor="#eed6a7"
-
+    gsap.from(".intro h2", {duration: 2, x: 200, ease: "bounce"});
     // Stops the header from also changing background color
     event.stopPropagation() 
 })
